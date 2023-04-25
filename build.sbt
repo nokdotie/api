@@ -7,7 +7,7 @@ lazy val root = project
     version := "0.1.0-SNAPSHOT",
     scalaVersion := scala3Version,
     libraryDependencies ++= Seq(
-      "dev.zio" %% "zio-http" % "3.0.0-RC1",
+      "dev.zio" %% "zio-http" % "0.0.5",
       "org.scalameta" %% "munit" % "0.7.29" % Test
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
