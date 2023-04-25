@@ -4,13 +4,14 @@ import zio._
 import zio.http._
 import zio.http.ServerConfig.default.address.getPort
 import ie.deed.api.proxies.BuildingEnergyRatingProxy
-import ie.deed.api.apps.SwaggerHttp
+import ie.deed.api.apps.{HealthApp, SwaggerHttp}
 import scala.util.chaining.scalaUtilChainingOps
 
 object Main extends ZIOAppDefault {
 
   private val app: App[Client] = (
     BuildingEnergyRatingProxy.http ++
+      HealthApp.http ++
       SwaggerHttp.http
   ).pipe {
     _
