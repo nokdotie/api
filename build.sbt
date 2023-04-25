@@ -11,5 +11,14 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio-http" % "3.0.0-RC1",
       "org.scalameta" %% "munit" % "0.7.29" % Test
+    ),
+    dockerRepository := Some("gcr.io/deed-ie"),
+    dockerAliases ++= Seq(
+      s"time-${Environment.instant}",
+      s"sha-${Environment.gitShortSha1}"
     )
+      .map(Option.apply)
+      .map(dockerAlias.value.withTag),
+    dockerExposedPorts ++= Seq(8080)
   )
+  .enablePlugins(JavaAppPackaging, DockerPlugin)
