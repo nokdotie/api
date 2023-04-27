@@ -1,4 +1,4 @@
-package ie.deed.api.proxies
+package ie.deed.api.apps.proxies
 
 import zio.http.*
 import zio.http.model.{Headers, Method}
