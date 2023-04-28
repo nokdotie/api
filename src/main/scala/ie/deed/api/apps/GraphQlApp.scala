@@ -1,35 +1,35 @@
 package ie.deed.api.apps
 
-import zio.ZLayer
-import zio.http._
-import zio.http.model.Method
-import caliban.schema.Schema
 import caliban.schema.ArgBuilder.auto._
 import caliban.schema.Schema.auto._
-import caliban.{graphQL, GraphQL, RootResolver}
+import caliban.{graphQL, RootResolver}
 import caliban.ZHttpAdapter
 import sttp.tapir.json.zio._
 import ie.deed.api.apikeys.graphql._
 import ie.deed.api.credits.graphql._
 import ie.deed.api.requests.graphql.{Request => _, _}
 import ie.deed.api.users.graphql._
-import caliban.relay.PageInfo
+import ie.deed.api.apikeys.stores.ApiKeyStore
+import zio.ZIO
+import zio.http._
+import zio.http.model.Method
 
 object GraphQlApp {
+
   case class Queries(
       me: () => User,
-      apiKeys: ApiKeysArgs => ApiKeyConnection,
+      apiKeys: ApiKeysArgs => ZIO[ApiKeyStore, Nothing, ApiKeyConnection],
       credits: CreditsArgs => CreditConnection,
       requests: RequestsArgs => RequestConnection
   )
 
   case class Mutations(
-      createApiKey: CreateApiKeyArgs => ApiKey,
-      deleteApiKey: DeleteApiKeyArgs => Unit,
+      createApiKey: CreateApiKeyArgs => ZIO[ApiKeyStore, Nothing, ApiKey],
+      deleteApiKey: DeleteApiKeyArgs => ZIO[ApiKeyStore, Nothing, Unit],
       buyCredit: BuyCreditArgs => Credit
   )
 
-  val api: GraphQL[Any] = graphQL(
+  val api = graphQL[ApiKeyStore, Queries, Mutations, Unit](
     RootResolver(
       Queries(
         UserResolver.me,
@@ -45,7 +45,7 @@ object GraphQlApp {
     )
   )
 
-  val http: Http[Any, Throwable, Request, Response] =
+  val http: Http[ApiKeyStore, Throwable, Request, Response] =
     Http.collectHandler[Request] {
       case Method.GET -> !! / "graphiql" =>
         Http.fromResource("graphiql.html").toHandler(Handler.notFound)

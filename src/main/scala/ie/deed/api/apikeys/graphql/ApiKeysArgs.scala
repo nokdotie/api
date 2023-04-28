@@ -1,11 +1,10 @@
 package ie.deed.api.apikeys.graphql
 
-import caliban.relay.{Base64Cursor, PaginationArgs}
+import caliban.relay.ForwardPaginationArgs
+import ie.deed.api.utils.graphql.JsonCursor
+import java.time.Instant
 
 case class ApiKeysArgs(
     first: Option[Int],
     after: Option[String]
-) extends PaginationArgs[Base64Cursor] {
-  override val before: Option[String] = None
-  override val last: Option[Int] = None
-}
+) extends ForwardPaginationArgs[JsonCursor[Instant]]

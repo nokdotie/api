@@ -4,5 +4,5 @@ import caliban.relay.PageInfo
 
 object RequestResolver {
   def requests(args: RequestsArgs): RequestConnection =
-    RequestConnection(Nil, PageInfo(false, false, None, None))
+    RequestConnection(PageInfo(false, false, None, None), Nil)
 }

@@ -1,8 +1,8 @@
 package ie.deed.api.credits.graphql
 
-import caliban.relay.{Base64Cursor, Edge}
+import ie.deed.api.utils.graphql.JsonCursor
+import caliban.relay.Edge
+import java.time.Instant
 
-case class CreditEdge(
-    node: Credit,
-    cursor: Base64Cursor
-) extends Edge[Base64Cursor, Credit]
+case class CreditEdge(cursor: JsonCursor[Instant], node: Credit)
+    extends Edge[JsonCursor[Instant], Credit]

@@ -1,8 +1,10 @@
 package ie.deed.api.apikeys.graphql
 
-import caliban.relay.{Base64Cursor, Edge}
+import caliban.relay.Edge
+import ie.deed.api.utils.graphql.JsonCursor
+import java.time.Instant
 
 case class ApiKeyEdge(
-    node: ApiKey,
-    cursor: Base64Cursor
-) extends Edge[Base64Cursor, ApiKey]
+    cursor: JsonCursor[Instant],
+    node: ApiKey
+) extends Edge[JsonCursor[Instant], ApiKey]
