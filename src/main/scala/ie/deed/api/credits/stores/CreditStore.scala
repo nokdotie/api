@@ -1,9 +1,9 @@
 package ie.deed.api.credits.stores
 
+import ie.deed.api.credits.{Credit, CreditSource}
 import ie.deed.api.users.UserIdentifier
 import java.time.Instant
 import zio.ZIO
-import ie.deed.api.credits.{Credit, CreditSource}
 
 trait CreditStore {
   def create(

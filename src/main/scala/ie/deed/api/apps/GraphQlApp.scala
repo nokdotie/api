@@ -12,6 +12,8 @@ import ie.deed.api.credits.stores.CreditStore
 import ie.deed.api.requests.graphql.{Request => _, _}
 import ie.deed.api.requests.stores.RequestStore
 import ie.deed.api.users.graphql._
+import ie.deed.api.utils.authentication.Authed
+import ie.deed.api.utils.authentication.JwtAuthMiddleware.jwtAuth
 import zio.ZIO
 import zio.http._
 import zio.http.model.Method
@@ -20,19 +22,43 @@ object GraphQlApp {
 
   case class Queries(
       me: () => User,
-      apiKeys: ApiKeysArgs => ZIO[ApiKeyStore, Nothing, ApiKeyConnection],
-      credits: CreditsArgs => ZIO[CreditStore, Nothing, CreditConnection],
-      requests: RequestsArgs => ZIO[RequestStore, Nothing, RequestConnection]
+      apiKeys: ApiKeysArgs => ZIO[
+        Authed with ApiKeyStore,
+        Nothing,
+        ApiKeyConnection
+      ],
+      credits: CreditsArgs => ZIO[
+        Authed with CreditStore,
+        Nothing,
+        CreditConnection
+      ],
+      requests: RequestsArgs => ZIO[
+        Authed with RequestStore,
+        Nothing,
+        RequestConnection
+      ]
   )
 
   case class Mutations(
-      createApiKey: CreateApiKeyArgs => ZIO[ApiKeyStore, Nothing, ApiKey],
-      deleteApiKey: DeleteApiKeyArgs => ZIO[ApiKeyStore, Nothing, Unit],
-      buyCredit: PurchaseCreditArgs => ZIO[CreditStore, Nothing, Credit]
+      createApiKey: CreateApiKeyArgs => ZIO[
+        Authed with ApiKeyStore,
+        Nothing,
+        ApiKey
+      ],
+      deleteApiKey: DeleteApiKeyArgs => ZIO[
+        Authed with ApiKeyStore,
+        Nothing,
+        Unit
+      ],
+      buyCredit: PurchaseCreditArgs => ZIO[
+        Authed with CreditStore,
+        Nothing,
+        Credit
+      ]
   )
 
   val api = graphQL[
-    ApiKeyStore with CreditStore with RequestStore,
+    Authed with ApiKeyStore with CreditStore with RequestStore,
     Queries,
     Mutations,
     Unit
@@ -66,5 +92,7 @@ object GraphQlApp {
           .fromZIO(api.interpreter)
           .map(ZHttpAdapter.makeHttpService(_))
           .flatMap(_.toHandler(Handler.notFound))
+          @@ jwtAuth
+
     }
 }

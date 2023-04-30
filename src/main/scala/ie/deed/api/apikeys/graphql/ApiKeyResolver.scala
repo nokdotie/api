@@ -1,23 +1,21 @@
 package ie.deed.api.apikeys.graphql
 
-import zio.ZIO
 import ie.deed.api.apikeys.graphql.ApiKey
 import ie.deed.api.apikeys.stores.ApiKeyStore
-import ie.deed.api.users.UserIdentifier
+import ie.deed.api.utils.authentication.Authed
 import ie.deed.api.utils.graphql.{Pagination, JsonCursor}
 import scala.util.chaining.scalaUtilChainingOps
+import zio.ZIO
 
 object ApiKeyResolver {
-  // TODO: value should be comming from the JWT in the Authorization header
-  val userIdentifier = UserIdentifier("123")
-
   def apiKeys(
       args: ApiKeysArgs
-  ): ZIO[ApiKeyStore, Nothing, ApiKeyConnection] = {
+  ): ZIO[Authed with ApiKeyStore, Nothing, ApiKeyConnection] = {
     val limit = Pagination.limit(args)
     val createdAtBefore = Pagination.cursor(args)
 
     for {
+      userIdentifier <- Authed.userIdentifier
       store <- ApiKeyStore.getPage(userIdentifier, limit, createdAtBefore)
       graphql = store.map { ApiKey.fromInternal }
       connection = Pagination.connection(
@@ -29,12 +27,21 @@ object ApiKeyResolver {
     } yield connection
   }
 
-  def createApiKey(args: CreateApiKeyArgs): ZIO[ApiKeyStore, Nothing, ApiKey] =
-    ApiKeyStore
-      .create(userIdentifier, args.description)
-      .map { ApiKey.fromInternal }
+  def createApiKey(
+      args: CreateApiKeyArgs
+  ): ZIO[Authed with ApiKeyStore, Nothing, ApiKey] =
+    for {
+      userIdentifier <- Authed.userIdentifier
+      apiKey <- ApiKeyStore.create(userIdentifier, args.description)
+      graphql = ApiKey.fromInternal(apiKey)
+    } yield graphql
 
-  def deleteApiKey(args: DeleteApiKeyArgs): ZIO[ApiKeyStore, Nothing, Unit] =
-    ApiKeyStore.delete(userIdentifier, args.key)
+  def deleteApiKey(
+      args: DeleteApiKeyArgs
+  ): ZIO[Authed with ApiKeyStore, Nothing, Unit] =
+    for {
+      userIdentifier <- Authed.userIdentifier
+      _ <- ApiKeyStore.delete(userIdentifier, args.key)
+    } yield ()
 
 }

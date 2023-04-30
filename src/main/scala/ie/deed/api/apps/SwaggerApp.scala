@@ -1,7 +1,7 @@
 package ie.deed.api.apps
 
 import zio.http._
-import zio.http.model.{Method, Status}
+import zio.http.model.Method
 
 object SwaggerHttp {
 

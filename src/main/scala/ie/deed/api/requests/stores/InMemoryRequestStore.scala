@@ -2,7 +2,6 @@ package ie.deed.api.requests.stores
 
 import ie.deed.api.requests.Request
 import ie.deed.api.users.UserIdentifier
-import ie.deed.api.utils.Base64Uuid
 import java.time.Instant
 import scala.util.chaining.scalaUtilChainingOps
 import scala.collection.mutable.{SortedSet => MutableSortedSet}

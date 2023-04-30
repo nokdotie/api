@@ -7,6 +7,7 @@ lazy val root = project
     version := "0.1.0-SNAPSHOT",
     scalaVersion := scala3Version,
     libraryDependencies ++= Seq(
+      "com.google.firebase" % "firebase-admin" % "9.1.1",
       "dev.zio" %% "zio-http" % "0.0.5",
       "com.github.ghostdogpr" %% "caliban" % "2.1.0",
       "com.github.ghostdogpr" %% "caliban-zio-http" % "2.1.0",
