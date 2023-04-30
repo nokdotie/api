@@ -10,7 +10,7 @@ lazy val root = project
       "dev.zio" %% "zio-http" % "0.0.5",
       "com.github.ghostdogpr" %% "caliban" % "2.1.0",
       "com.github.ghostdogpr" %% "caliban-zio-http" % "2.1.0",
-      "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.2.11",
+      "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.2.13",
       "org.scalameta" %% "munit" % "0.7.29" % Test
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
