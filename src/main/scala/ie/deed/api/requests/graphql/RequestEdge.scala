@@ -5,6 +5,6 @@ import ie.deed.api.utils.graphql.JsonCursor
 import java.time.Instant
 
 case class RequestEdge(
-    node: Request,
-    cursor: JsonCursor[Instant]
+    cursor: JsonCursor[Instant],
+    node: Request
 ) extends Edge[JsonCursor[Instant], Request]
