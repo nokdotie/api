@@ -8,6 +8,7 @@ import ie.deed.api.utils.graphql.{Pagination, JsonCursor}
 import scala.util.chaining.scalaUtilChainingOps
 
 object ApiKeyResolver {
+  // TODO: value should be comming from the JWT in the Authorization header
   val userIdentifier = UserIdentifier("123")
 
   def apiKeys(
@@ -18,9 +19,7 @@ object ApiKeyResolver {
 
     for {
       store <- ApiKeyStore.getPage(userIdentifier, limit, createdAtBefore)
-      graphql = store.map { apiKey =>
-        ApiKey(apiKey.key, apiKey.description, apiKey.createdAt)
-      }
+      graphql = store.map { ApiKey.fromInternal }
       connection = Pagination.connection(
         ApiKeyConnection.apply,
         _.createdAt.pipe(JsonCursor.apply),
@@ -33,9 +32,7 @@ object ApiKeyResolver {
   def createApiKey(args: CreateApiKeyArgs): ZIO[ApiKeyStore, Nothing, ApiKey] =
     ApiKeyStore
       .create(userIdentifier, args.description)
-      .map { apiKey =>
-        ApiKey(apiKey.key, apiKey.description, apiKey.createdAt)
-      }
+      .map { ApiKey.fromInternal }
 
   def deleteApiKey(args: DeleteApiKeyArgs): ZIO[ApiKeyStore, Nothing, Unit] =
     ApiKeyStore.delete(userIdentifier, args.key)

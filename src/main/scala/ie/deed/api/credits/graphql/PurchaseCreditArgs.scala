@@ -1,5 +1,5 @@
 package ie.deed.api.credits.graphql
 
-case class BuyCreditArgs(
+case class PurchaseCreditArgs(
     amount: Int
 )

@@ -15,13 +15,13 @@ object InMemoryApiKeyStore extends ApiKeyStore {
     MutableSortedSet.empty(Ordering.by { -_.createdAt.getEpochSecond() })
 
   def create(userIdentifier: UserIdentifier, description: String): ApiKey =
-    ApiKey(Base64Uuid.random().value, description, Instant.now, userIdentifier)
+    ApiKey(Base64Uuid.random(), description, Instant.now, userIdentifier)
       .tap { store.add }
 
   def delete(userIdentifier: UserIdentifier, key: String): Unit =
     store
       .find { apiKey =>
-        apiKey.userIdentifier == userIdentifier && apiKey.key == key
+        apiKey.userIdentifier == userIdentifier && apiKey.id.value == key
       }
       .foreach { store.remove }
 
