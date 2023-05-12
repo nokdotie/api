@@ -9,6 +9,7 @@ import ie.deed.api.apikeys.graphql._
 import ie.deed.api.apikeys.stores.ApiKeyStore
 import ie.deed.api.credits.graphql._
 import ie.deed.api.credits.stores.CreditStore
+import ie.deed.api.purchases.stripe.StripeClient
 import ie.deed.api.requests.graphql.{Request => _, _}
 import ie.deed.api.requests.stores.RequestStore
 import ie.deed.api.users.graphql._
@@ -50,15 +51,19 @@ object GraphQlApp {
         Nothing,
         Unit
       ],
-      buyCredit: PurchaseCreditArgs => ZIO[
-        Authed with CreditStore,
-        Nothing,
+      purchaseCredit: PurchaseCreditArgs => ZIO[
+        Authed with CreditStore with StripeClient,
+        Throwable,
         Credit
       ]
   )
 
   val api = graphQL[
-    Authed with ApiKeyStore with CreditStore with RequestStore,
+    Authed
+      with ApiKeyStore
+      with CreditStore
+      with RequestStore
+      with StripeClient,
     Queries,
     Mutations,
     Unit
@@ -79,7 +84,7 @@ object GraphQlApp {
   )
 
   val http: Http[
-    ApiKeyStore with CreditStore with RequestStore,
+    ApiKeyStore with CreditStore with RequestStore with StripeClient,
     Throwable,
     Request,
     Response
