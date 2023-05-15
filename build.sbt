@@ -12,7 +12,9 @@ lazy val root = project
       "com.github.ghostdogpr" %% "caliban" % "2.1.0",
       "com.github.ghostdogpr" %% "caliban-zio-http" % "2.1.0",
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.3.0",
-      "org.scalameta" %% "munit" % "0.7.29" % Test
+      "com.stripe" % "stripe-java" % "22.18.0",
+      "dev.zio" %% "zio-test" % "2.0.13" % Test,
+      "dev.zio" %% "zio-test-sbt" % "2.0.13" % Test
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
     dockerAliases ++= Seq(
@@ -21,6 +23,7 @@ lazy val root = project
     )
       .map(Option.apply)
       .map(dockerAlias.value.withTag),
-    dockerExposedPorts ++= Seq(8080)
+    dockerExposedPorts ++= Seq(8080),
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )
   .enablePlugins(JavaAppPackaging, DockerPlugin)

@@ -16,6 +16,11 @@ trait CreditStore {
       limit: Int,
       createdAtBefore: Option[Instant]
   ): List[Credit]
+  def getPageByStripeCheckoutSessionId(
+      checkoutSessionId: String,
+      limit: Int,
+      createdAtBefore: Option[Instant]
+  ): List[Credit]
 }
 
 object CreditStore {
@@ -36,4 +41,16 @@ object CreditStore {
       _.getPage(userIdentifier, limit, createdAtBefore)
     )
 
+  def getPageByStripeCheckoutSessionId(
+      checkoutSessionId: String,
+      limit: Int,
+      createdAtBefore: Option[Instant]
+  ): ZIO[CreditStore, Nothing, List[Credit]] =
+    ZIO.serviceWith[CreditStore](
+      _.getPageByStripeCheckoutSessionId(
+        checkoutSessionId,
+        limit,
+        createdAtBefore
+      )
+    )
 }

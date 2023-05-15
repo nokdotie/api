@@ -34,4 +34,17 @@ object InMemoryCreditStore extends CreditStore {
       }
       .take(limit)
       .toList
+
+  def getPageByStripeCheckoutSessionId(
+      checkoutSessionId: String,
+      limit: Int,
+      createdAtBefore: Option[Instant]
+  ): List[Credit] =
+    store
+      .filter { credit =>
+        credit.source == CreditSource.StripePurchase(checkoutSessionId) &&
+        credit.createdAt.isBefore(createdAtBefore.getOrElse(Instant.MAX))
+      }
+      .take(limit)
+      .toList
 }
