@@ -47,7 +47,8 @@ class StripeWrapperImpl(secretKey: StripeSecretKey) extends StripeWrapper {
       checkoutSessionId: String
   ): ZIO[Any, Throwable, Session] = {
     ZIO.attemptBlocking {
-      val params = SessionRetrieveParams.Builder()
+      val params = SessionRetrieveParams
+        .Builder()
         .addExpand("line_items")
         .build()
 
