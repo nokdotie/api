@@ -2,7 +2,7 @@ package ie.deed.api.credits.graphql
 
 import ie.deed.api.credits.CreditSource
 import ie.deed.api.credits.stores.CreditStore
-import ie.deed.api.purchases.stripe.StripeClient
+import ie.deed.api.purchases.stores.PurchaseStore
 import ie.deed.api.utils.authentication.Authed
 import ie.deed.api.utils.graphql.{JsonCursor, Pagination}
 import scala.util.chaining.scalaUtilChainingOps
@@ -30,12 +30,12 @@ object CreditResolver {
 
   def purchaseCredit(
       args: PurchaseCreditArgs
-  ): ZIO[Authed with CreditStore with StripeClient, Throwable, Credit] =
+  ): ZIO[Authed with CreditStore with PurchaseStore, Throwable, Credit] =
     for {
       userIdentifier <- Authed.userIdentifier
-      purchase <- StripeClient.getPurchase(args.stripeCheckoutSessionId)
+      purchase <- PurchaseStore.getStripePurchase(args.stripeCheckoutSessionId)
       existingCredits <- CreditStore.getPageByStripeCheckoutSessionId(
-        purchase.checkoutSessionId,
+        purchase.source.checkoutSessionId,
         1,
         None
       )
@@ -47,7 +47,7 @@ object CreditResolver {
       credit <- CreditStore.create(
         userIdentifier,
         purchase.creditAmount,
-        CreditSource.StripePurchase(purchase.checkoutSessionId)
+        CreditSource.StripePurchase(purchase.source.checkoutSessionId)
       )
       graphql = Credit.fromInternal(credit)
     } yield graphql

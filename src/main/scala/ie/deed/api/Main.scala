@@ -7,14 +7,19 @@ import ie.deed.api.apikeys.stores._
 import ie.deed.api.apps._
 import ie.deed.api.apps.proxies._
 import ie.deed.api.credits.stores._
-import ie.deed.api.purchases.stripe._
+import ie.deed.api.purchases.stores._
+import ie.deed.api.purchases.utils._
 import ie.deed.api.requests.stores._
 import scala.util.chaining.scalaUtilChainingOps
 
 object Main extends ZIOAppDefault {
 
   private val app: App[
-    ApiKeyStore with CreditStore with RequestStore with StripeClient with Client
+    ApiKeyStore
+      with CreditStore
+      with RequestStore
+      with PurchaseStore
+      with Client
   ] = (
     BuildingEnergyRatingProxy.http ++
       PropertyPriceRegisterProxy.http ++
@@ -35,7 +40,8 @@ object Main extends ZIOAppDefault {
         InMemoryApiKeyStore.live,
         InMemoryCreditStore.live,
         InMemoryRequestStore.live,
-        StripeClient.layer,
+        StripeWrapper.default,
+        PurchaseStore.default,
         Server.default,
         Client.default
       )
