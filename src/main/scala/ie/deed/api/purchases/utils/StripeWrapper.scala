@@ -2,6 +2,7 @@ package ie.deed.api.purchases.utils
 
 import com.stripe.model.checkout.Session
 import com.stripe.net.RequestOptions
+import com.stripe.param.checkout.SessionRetrieveParams
 import zio.{System, ZIO, ZLayer}
 
 final case class StripeSecretKey(value: String) extends AnyVal
@@ -45,6 +46,16 @@ class StripeWrapperImpl(secretKey: StripeSecretKey) extends StripeWrapper {
   override def checkoutSessionRetrieve(
       checkoutSessionId: String
   ): ZIO[Any, Throwable, Session] = {
-    ZIO.attemptBlocking { Session.retrieve(checkoutSessionId, requestOptions) }
+    ZIO.attemptBlocking {
+      val params = SessionRetrieveParams.Builder()
+        .addExpand("line_items")
+        .build()
+
+      Session.retrieve(
+        checkoutSessionId,
+        params,
+        requestOptions
+      )
+    }
   }
 }
