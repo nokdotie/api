@@ -1,4 +1,4 @@
-package ie.deed.api.apps.proxies
+package ie.nok.api.apps.proxies
 
 import zio.http.*
 

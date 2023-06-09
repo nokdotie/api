@@ -1,4 +1,4 @@
-package ie.deed.api.utils
+package ie.nok.api.utils
 
 import java.util.{Base64, UUID}
 import scala.util.chaining.scalaUtilChainingOps

@@ -1,4 +1,4 @@
-package ie.deed.api.utils.graphql
+package ie.nok.api.utils.graphql
 
 import caliban.relay.Cursor
 import java.util.Base64

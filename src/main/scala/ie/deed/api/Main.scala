@@ -1,10 +1,10 @@
-package ie.deed.api
+package ie.nok.api
 
 import zio._
 import zio.http._
 import zio.http.ServerConfig.default.address.getPort
-import ie.deed.api.apps._
-import ie.deed.api.apps.proxies._
+import ie.nok.api.apps._
+import ie.nok.api.apps.proxies._
 import scala.util.chaining.scalaUtilChainingOps
 
 object Main extends ZIOAppDefault {
