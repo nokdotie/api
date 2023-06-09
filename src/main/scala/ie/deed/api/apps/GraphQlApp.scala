@@ -1,4 +1,4 @@
-package ie.deed.api.apps
+package ie.nok.api.apps
 
 import caliban.schema.ArgBuilder.auto._
 import caliban.schema.Schema.auto._

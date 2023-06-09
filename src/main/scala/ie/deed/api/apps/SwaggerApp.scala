@@ -1,4 +1,4 @@
-package ie.deed.api.apps
+package ie.nok.api.apps
 
 import zio.http._
 import zio.http.model.Method
