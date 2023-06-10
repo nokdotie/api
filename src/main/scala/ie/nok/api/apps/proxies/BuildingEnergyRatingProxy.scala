@@ -9,9 +9,9 @@ object BuildingEnergyRatingProxy {
   val http: Http[Client, Throwable, Request, Response] =
     Http.collectZIO[Request] {
       case Method.GET -> !! / "v1" / "ber" / int(certificateNumber) =>
-        get(s"$origin/v1/ber/$certificateNumber")
+        Client.request(s"$origin/v1/ber/$certificateNumber")
       case Method.GET -> !! / "v1" / "eircode" / eircode / "ber" =>
-        get(s"$origin/v1/eircode/$eircode/ber")
+        Client.request(s"$origin/v1/eircode/$eircode/ber")
     }
 
 }
