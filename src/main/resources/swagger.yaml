@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
   version: v1
-  title: deed.ie
+  title: nok.ie
   description: API to access real estate data
   contact:
-    email: api@deed.ie
+    email: api@nok.ie
 
 servers:
-  - url: https://api.deed.ie/
+  - url: https://api.nok.ie/
 
 components:
   securitySchemes:
@@ -153,7 +153,7 @@ tags:
   - name: ber
     description: Access to BER certificates
     externalDocs:
-      url: https://ber.deed.ie
+      url: https://ber.nok.ie
 
 paths:
   /v1/ber/{number}:

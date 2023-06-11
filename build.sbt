@@ -1,4 +1,4 @@
-val scala3Version = "3.2.2"
+val scala3Version = "3.3.0"
 
 lazy val root = project
   .in(file("."))
@@ -11,10 +11,10 @@ lazy val root = project
       "dev.zio" %% "zio-http" % "0.0.5",
       "com.github.ghostdogpr" %% "caliban" % "2.1.0",
       "com.github.ghostdogpr" %% "caliban-zio-http" % "2.1.0",
-      "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.3.0",
+      "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.5.0",
       "com.stripe" % "stripe-java" % "22.18.0",
-      "dev.zio" %% "zio-test" % "2.0.13" % Test,
-      "dev.zio" %% "zio-test-sbt" % "2.0.13" % Test
+      "dev.zio" %% "zio-test" % "2.0.14" % Test,
+      "dev.zio" %% "zio-test-sbt" % "2.0.14" % Test
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
     dockerAliases ++= Seq(
