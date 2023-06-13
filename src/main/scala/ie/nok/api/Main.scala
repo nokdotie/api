@@ -3,13 +3,15 @@ package ie.nok.api
 import zio._
 import zio.http._
 import zio.http.ServerConfig.default.address.getPort
+import ie.nok.adverts.stores.{AdvertStore, AdvertStoreImpl}
 import ie.nok.api.apps._
 import ie.nok.api.apps.proxies._
+import ie.nok.gcp.storage.Storage
 import scala.util.chaining.scalaUtilChainingOps
 
 object Main extends ZIOAppDefault {
 
-  private val app: App[Client] = (
+  private val app: App[AdvertStore with Client] = (
     BuildingEnergyRatingProxy.http ++
       PropertyPriceRegisterProxy.http ++
       GraphQlApp.http ++
@@ -27,7 +29,10 @@ object Main extends ZIOAppDefault {
       .serve(app)
       .provide(
         Server.default,
-        Client.default
+        Client.default,
+        AdvertStoreImpl.live,
+        Storage.live,
+        Scope.default
       )
   } yield ()
 

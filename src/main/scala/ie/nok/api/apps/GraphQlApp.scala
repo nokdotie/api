@@ -4,6 +4,12 @@ import caliban.schema.ArgBuilder.auto._
 import caliban.schema.Schema.auto._
 import caliban.{graphQL, RootResolver}
 import caliban.ZHttpAdapter
+import ie.nok.adverts.stores.AdvertStore
+import ie.nok.api.graphql.adverts.{
+  AdvertsArgs,
+  AdvertResolver,
+  AdvertConnection
+}
 import sttp.tapir.json.zio._
 import zio.ZIO
 import zio.http._
@@ -11,14 +17,20 @@ import zio.http.model.Method
 
 object GraphQlApp {
 
-  case class Queries()
+  case class Queries(
+      adverts: AdvertsArgs => ZIO[
+        AdvertStore,
+        Throwable,
+        AdvertConnection
+      ]
+  )
 
-  val api = graphQL(
-    RootResolver(Queries())
+  val api = graphQL[AdvertStore, Queries, Unit, Unit](
+    RootResolver(Queries(AdvertResolver.adverts))
   )
 
   val http: Http[
-    Any,
+    AdvertStore,
     Throwable,
     Request,
     Response
