@@ -15,9 +15,8 @@ object AdvertResolver {
 
     for {
       page <- AdvertStore.getPage(first, after)
-      advertWithIndex = page.zipWithIndex.map {
-        (advert, index) =>
-          (Advert.fromInternal(advert), index + after.index + 1)
+      advertWithIndex = page.zipWithIndex.map { (advert, index) =>
+        (Advert.fromInternal(advert), index + after.index + 1)
       }
       connection = Pagination.connection[(Advert, Int), Advert, JsonCursor[
         Int
