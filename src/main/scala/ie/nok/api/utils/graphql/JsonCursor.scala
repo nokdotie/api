@@ -1,6 +1,9 @@
 package ie.nok.api.utils.graphql
 
 import caliban.relay.Cursor
+import ie.nok.base64.{Base64Decoder, Base64Encoder}
+import ie.nok.json.JsonDecoder
+import ie.nok.zio.ZIO
 import java.util.Base64
 import scala.util.Try
 import scala.util.chaining.scalaUtilChainingOps
@@ -9,29 +12,21 @@ import caliban.schema.Schema
 
 case class JsonCursor[A: JsonCodec](value: A)
 object JsonCursor {
-  lazy val encoder = Base64.getUrlEncoder.withoutPadding()
-  lazy val decoder = Base64.getUrlDecoder
-
   given [A: JsonCodec]: Cursor[JsonCursor[A]] = new Cursor[JsonCursor[A]] {
     type T = A
 
-    def encode(a: JsonCursor[A]): String =
-      a.value.toJson.getBytes("UTF-8").pipe(encoder.encodeToString)
-
+    def encode(a: JsonCursor[A]): String = a.value.toJson.pipe {
+      Base64Encoder.encode
+    }
     def decode(s: String): Either[String, JsonCursor[A]] =
-      Try { decoder.decode(s) }
-        .map { new String(_, "UTF-8") }
-        .flatMap { json =>
-          json
-            .fromJson[A]
-            .left
-            .map { err => Throwable(s"$err: $json") }
-            .toTry
-        }
+      Base64Decoder
+        .decode(s)
+        .flatMap { JsonDecoder.decode[A] }
         .map { JsonCursor.apply }
+        .pipe { ZIO.unsafeRun }
         .toEither
         .left
-        .map(_.getMessage())
+        .map { _.getMessage }
 
     def value(cursor: JsonCursor[A]): A = cursor.value
   }
