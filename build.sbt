@@ -11,7 +11,7 @@ lazy val root = project
       "com.google.firebase" % "firebase-admin" % "9.1.1",
       "com.github.ghostdogpr" %% "caliban" % "2.1.0",
       "com.github.ghostdogpr" %% "caliban-zio-http" % "2.1.0",
-      "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.5.0",
+      "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.5.1",
       "com.stripe" % "stripe-java" % "22.18.0",
       "dev.zio" %% "zio-http" % "0.0.5",
       "dev.zio" %% "zio-test" % "2.0.14" % Test,
