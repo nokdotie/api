@@ -14,8 +14,8 @@ lazy val root = project
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.5.1",
       "com.stripe" % "stripe-java" % "22.18.0",
       "dev.zio" %% "zio-http" % "0.0.5",
-      "dev.zio" %% "zio-test" % "2.0.14" % Test,
-      "dev.zio" %% "zio-test-sbt" % "2.0.14" % Test,
+      "dev.zio" %% "zio-test" % "2.0.15" % Test,
+      "dev.zio" %% "zio-test-sbt" % "2.0.15" % Test,
       "ie.nok" %% "adverts" % "20230613.161934.57997213",
       "ie.nok" %% "scala-libraries" % "20230613.165955.872066093"
     ),
