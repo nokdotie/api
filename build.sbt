@@ -9,15 +9,15 @@ lazy val root = project
     resolvers += Resolver.githubPackages("nok-ie"),
     libraryDependencies ++= Seq(
       "com.google.firebase" % "firebase-admin" % "9.1.1",
-      "com.github.ghostdogpr" %% "caliban" % "2.2.1",
-      "com.github.ghostdogpr" %% "caliban-zio-http" % "2.2.1",
+      "com.github.ghostdogpr" %% "caliban" % "2.1.0",
+      "com.github.ghostdogpr" %% "caliban-zio-http" % "2.1.0",
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.5.4",
       "com.stripe" % "stripe-java" % "22.18.0",
       "dev.zio" %% "zio-http" % "0.0.5",
       "dev.zio" %% "zio-test" % "2.0.15" % Test,
       "dev.zio" %% "zio-test-sbt" % "2.0.15" % Test,
-      "ie.nok" %% "adverts" % "20230614.143153.156865279",
-      "ie.nok" %% "scala-libraries" % "20230614.143350.651178744"
+      "ie.nok" %% "adverts" % "20230613.211506.300703535",
+      "ie.nok" %% "scala-libraries" % "20230613.165955.872066093"
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
     dockerAliases ++= Seq(
