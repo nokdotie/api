@@ -11,8 +11,8 @@ case class AdvertsArgs(
 
 case class AdvertsFilter(
     address: Option[StringFilter],
-    price: Option[IntFilter],
-    sizeinSqtMtr: Option[IntFilter],
+    priceInEur: Option[IntFilter],
+    sizeInSqtMtr: Option[IntFilter],
     bedroomsCount: Option[IntFilter],
     bathroomsCount: Option[IntFilter]
 )
