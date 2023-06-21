@@ -16,7 +16,7 @@ lazy val root = project
       "dev.zio" %% "zio-http" % "0.0.5",
       "dev.zio" %% "zio-test" % "2.0.15" % Test,
       "dev.zio" %% "zio-test-sbt" % "2.0.15" % Test,
-      "ie.nok" %% "adverts" % "20230613.211506.300703535",
+      "ie.nok" %% "adverts" % "20230620.103924.309999817",
       "ie.nok" %% "scala-libraries" % "20230613.165955.872066093"
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
@@ -27,6 +27,7 @@ lazy val root = project
       .map(Option.apply)
       .map(dockerAlias.value.withTag),
     dockerExposedPorts ++= Seq(8080),
-    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
+    scalacOptions ++= Seq("-Xmax-inlines", "64")
   )
   .enablePlugins(JavaAppPackaging, DockerPlugin)
