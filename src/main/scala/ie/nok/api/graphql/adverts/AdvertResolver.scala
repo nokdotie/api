@@ -17,6 +17,7 @@ object AdvertResolver {
       from
         .flatMap(_.address)
         .flatMap(_.contains)
+        .map { _.trim }
         .map { contains =>
           AdvertFilter.Address(StringFilter.Contains(contains))
         },
