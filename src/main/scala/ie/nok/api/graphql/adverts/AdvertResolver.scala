@@ -21,26 +21,28 @@ object AdvertResolver {
           AdvertFilter.Address(StringFilter.Contains(contains))
         },
       from
-        .flatMap(_.price)
+        .flatMap(_.priceInEur)
         .flatMap(_.greaterThanOrEqual)
         .map { gte =>
-          AdvertFilter.Price(NumericFilter.GreaterThanOrEqual(gte))
+          AdvertFilter.PriceInEur(NumericFilter.GreaterThanOrEqual(gte))
         },
       from
-        .flatMap(_.price)
-        .flatMap(_.lessThanOrEqual)
-        .map { lte => AdvertFilter.Price(NumericFilter.LessThanOrEqual(lte)) },
-      from
-        .flatMap(_.sizeinSqtMtr)
-        .flatMap(_.greaterThanOrEqual)
-        .map { gte =>
-          AdvertFilter.SizeinSqtMtr(NumericFilter.GreaterThanOrEqual(gte))
-        },
-      from
-        .flatMap(_.sizeinSqtMtr)
+        .flatMap(_.priceInEur)
         .flatMap(_.lessThanOrEqual)
         .map { lte =>
-          AdvertFilter.SizeinSqtMtr(NumericFilter.LessThanOrEqual(lte))
+          AdvertFilter.PriceInEur(NumericFilter.LessThanOrEqual(lte))
+        },
+      from
+        .flatMap(_.sizeInSqtMtr)
+        .flatMap(_.greaterThanOrEqual)
+        .map { gte =>
+          AdvertFilter.SizeInSqtMtr(NumericFilter.GreaterThanOrEqual(gte))
+        },
+      from
+        .flatMap(_.sizeInSqtMtr)
+        .flatMap(_.lessThanOrEqual)
+        .map { lte =>
+          AdvertFilter.SizeInSqtMtr(NumericFilter.LessThanOrEqual(lte))
         },
       from
         .flatMap(_.bedroomsCount)
