@@ -96,7 +96,8 @@ object AdvertResolver {
         AdvertEdge.apply,
         (_, index) => JsonCursor(index),
         (advert, _) => advert,
-        advertWithIndex
+        advertWithIndex,
+        first
       )
     } yield connection
   }
