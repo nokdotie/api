@@ -5,7 +5,7 @@ import caliban.relay._
 
 object Pagination {
   val MinValue = 1
-  val MaxValue = 25
+  val MaxValue = 60
 
   def first(pagination: ForwardPaginationArgs[_]): Int =
     pagination.first.getOrElse(MaxValue).min(MaxValue).max(MinValue)
