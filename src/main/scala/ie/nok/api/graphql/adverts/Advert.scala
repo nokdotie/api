@@ -1,5 +1,6 @@
 package ie.nok.api.graphql.adverts
 
+import caliban.schema.Schema
 import java.time.Instant
 
 case class Advert(
@@ -13,6 +14,8 @@ case class Advert(
 )
 
 object Advert {
+  given Schema[Any, Advert] = Schema.gen
+
   def fromInternal(internal: ie.nok.adverts.Advert): Advert =
     Advert(
       advertUrl = internal.advertUrl,
