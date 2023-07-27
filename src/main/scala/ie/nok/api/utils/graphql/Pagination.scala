@@ -1,7 +1,7 @@
 package ie.nok.api.utils.graphql
 
-import zio.json.JsonCodec
 import caliban.relay._
+import zio.json.JsonCodec
 
 object Pagination {
   val MinValue = 1
@@ -60,5 +60,4 @@ object Pagination {
       edges(edge, cursor, node, ctx),
       edgesExpectedLength
     )
-
 }

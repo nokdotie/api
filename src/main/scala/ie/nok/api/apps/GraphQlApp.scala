@@ -1,9 +1,7 @@
 package ie.nok.api.apps
 
-import caliban.schema.ArgBuilder.auto._
-import caliban.schema.Schema.auto._
-import caliban.{graphQL, RootResolver}
-import caliban.ZHttpAdapter
+import caliban.{graphQL, RootResolver, ZHttpAdapter}
+import caliban.schema.{Schema, ArgBuilder}
 import ie.nok.adverts.stores.AdvertStore
 import ie.nok.api.graphql.adverts.{
   AdvertsArgs,
@@ -24,6 +22,9 @@ object GraphQlApp {
         AdvertConnection
       ]
   )
+  object Queries {
+    given Schema[AdvertStore, Queries] = Schema.gen
+  }
 
   val api = graphQL[AdvertStore, Queries, Unit, Unit](
     RootResolver(Queries(AdvertResolver.adverts))
