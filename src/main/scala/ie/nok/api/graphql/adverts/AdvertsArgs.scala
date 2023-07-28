@@ -19,7 +19,7 @@ object AdvertsArgs {
 
 case class AdvertsFilter(
     address: Option[StringFilter],
-    geohash: Option[StringFilter]
+    coordinates: Option[CoordinatesFilter]
 )
 
 object AdvertsFilter {
@@ -31,9 +31,9 @@ object AdvertsFilter {
       filter.address
         .map(StringFilter.toStoreFilter)
         .map(stores.AdvertFilter.Address(_)),
-      filter.geohash
-        .map(StringFilter.toStoreFilter)
-        .map(stores.AdvertFilter.GeoHash(_))
+      filter.coordinates
+        .map(CoordinatesFilter.toStoreFilter)
+        .map(stores.AdvertFilter.Coordinates(_))
     ).flatten
       .pipe {
         case Nil          => stores.AdvertFilter.Empty
