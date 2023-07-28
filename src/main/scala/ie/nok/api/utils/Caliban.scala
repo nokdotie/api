@@ -1,4 +1,4 @@
-package ie.nok.api.utils.graphql
+package ie.nok.api.utils
 
 import caliban.relay.PageInfo
 import caliban.schema.Schema

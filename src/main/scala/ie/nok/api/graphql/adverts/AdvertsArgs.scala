@@ -3,7 +3,9 @@ package ie.nok.api.graphql.adverts
 import caliban.relay.ForwardPaginationArgs
 import caliban.schema.{ArgBuilder, Schema}
 import ie.nok.adverts.stores
-import ie.nok.api.utils.graphql.{JsonCursor, StringFilter}
+import ie.nok.api.utils.filters.CoordinatesFilter
+import ie.nok.api.utils.pagination.JsonCursor
+import ie.nok.api.utils.filters.StringFilter
 import scala.util.chaining.scalaUtilChainingOps
 
 case class AdvertsArgs(
@@ -19,7 +21,7 @@ object AdvertsArgs {
 
 case class AdvertsFilter(
     address: Option[StringFilter],
-    geohash: Option[StringFilter]
+    coordinates: Option[CoordinatesFilter]
 )
 
 object AdvertsFilter {
@@ -31,9 +33,9 @@ object AdvertsFilter {
       filter.address
         .map(StringFilter.toStoreFilter)
         .map(stores.AdvertFilter.Address(_)),
-      filter.geohash
-        .map(StringFilter.toStoreFilter)
-        .map(stores.AdvertFilter.GeoHash(_))
+      filter.coordinates
+        .map(CoordinatesFilter.toStoreFilter)
+        .map(stores.AdvertFilter.Coordinates(_))
     ).flatten
       .pipe {
         case Nil          => stores.AdvertFilter.Empty
