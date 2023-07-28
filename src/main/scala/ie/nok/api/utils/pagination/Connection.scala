@@ -1,23 +1,9 @@
-package ie.nok.api.utils.graphql
+package ie.nok.api.utils.pagination
 
 import caliban.relay._
 import zio.json.JsonCodec
 
-object Pagination {
-  val MinValue = 1
-  val MaxValue = 60
-
-  def first(pagination: ForwardPaginationArgs[_]): Int =
-    pagination.first.getOrElse(MaxValue).min(MaxValue).max(MinValue)
-
-  def after[A: JsonCodec](
-      pagination: ForwardPaginationArgs[JsonCursor[A]]
-  ): Option[A] =
-    pagination.after
-      .map { Cursor[JsonCursor[A]].decode(_).toOption }
-      .flatten
-      .map { _.value }
-
+object Connection {
   private def pageInfoFromEdges[Cu: Cursor, E <: Edge[Cu, _]](
       edges: List[E],
       edgesExpectedLength: Int
@@ -47,7 +33,7 @@ object Pagination {
   ): List[E] =
     ctx.map { ctx => edge(cursor(ctx), node(ctx)) }
 
-  def connection[Ctx, N, Cu: Cursor, E <: Edge[Cu, N], Co <: Connection[E]](
+  def apply[Ctx, N, Cu: Cursor, E <: Edge[Cu, N], Co <: Connection[E]](
       connection: (PageInfo, List[E]) => Co,
       edge: (Cu, N) => E,
       cursor: Ctx => Cu,

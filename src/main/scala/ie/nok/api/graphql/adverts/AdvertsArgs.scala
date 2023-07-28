@@ -3,7 +3,9 @@ package ie.nok.api.graphql.adverts
 import caliban.relay.ForwardPaginationArgs
 import caliban.schema.{ArgBuilder, Schema}
 import ie.nok.adverts.stores
-import ie.nok.api.utils.graphql.{JsonCursor, StringFilter}
+import ie.nok.api.utils.filters.CoordinatesFilter
+import ie.nok.api.utils.pagination.JsonCursor
+import ie.nok.api.utils.filters.StringFilter
 import scala.util.chaining.scalaUtilChainingOps
 
 case class AdvertsArgs(

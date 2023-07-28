@@ -2,7 +2,7 @@ package ie.nok.api.graphql.adverts
 
 import caliban.relay.{Connection, PageInfo}
 import caliban.schema.Schema
-import ie.nok.api.utils.graphql.Caliban.given
+import ie.nok.api.utils.Caliban.given
 
 case class AdvertConnection(
     pageInfo: PageInfo,
