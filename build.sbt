@@ -1,5 +1,15 @@
 val scala3Version = "3.3.0"
 
+Universal / javaOptions ++= Seq(
+  "-J-Xms2G",
+  "-J-Xmx2G"
+)
+
+Universal / scalacOptions ++= Seq(
+  "-Xms2G",
+  "-Xmx2G"
+)
+
 lazy val root = project
   .in(file("."))
   .settings(
@@ -27,7 +37,6 @@ lazy val root = project
       .map(Option.apply)
       .map(dockerAlias.value.withTag),
     dockerExposedPorts ++= Seq(8080),
-    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
-    scalacOptions ++= Seq("-Xmax-inlines", "64")
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )
   .enablePlugins(JavaAppPackaging, DockerPlugin)
