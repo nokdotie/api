@@ -12,7 +12,8 @@ case class Advert(
     propertyImageUrls: List[String],
     propertySizeInSqtMtr: BigDecimal,
     propertyBedroomsCount: Int,
-    propertyBathroomsCount: Int
+    propertyBathroomsCount: Int,
+    propertyBuildingEnergyRating: Option[String]
 )
 
 object Advert {
@@ -28,6 +29,9 @@ object Advert {
       propertyImageUrls = internal.propertyImageUrls,
       propertySizeInSqtMtr = internal.propertySizeInSqtMtr,
       propertyBedroomsCount = internal.propertyBedroomsCount,
-      propertyBathroomsCount = internal.propertyBathroomsCount
+      propertyBathroomsCount = internal.propertyBathroomsCount,
+      propertyBuildingEnergyRating = internal.propertyBuildingEnergyRating.map {
+        _.toString
+      }
     )
 }
