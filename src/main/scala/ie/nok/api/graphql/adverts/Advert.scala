@@ -13,7 +13,8 @@ case class Advert(
     propertySizeInSqtMtr: BigDecimal,
     propertyBedroomsCount: Int,
     propertyBathroomsCount: Int,
-    propertyBuildingEnergyRating: Option[String]
+    propertyBuildingEnergyRating: Option[String],
+    sources: List[InformationSource]
 )
 
 object Advert {
@@ -32,6 +33,7 @@ object Advert {
       propertyBathroomsCount = internal.propertyBathroomsCount,
       propertyBuildingEnergyRating = internal.propertyBuildingEnergyRating.map {
         _.toString
-      }
+      },
+      sources = internal.sources.map { InformationSource.fromInternal }
     )
 }
