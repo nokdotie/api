@@ -7,6 +7,7 @@ import ie.nok.api.utils.geographic.Coordinates
 case class Advert(
     advertUrl: String,
     advertPriceInEur: Int,
+    propertyIdentifier: String,
     propertyAddress: String,
     propertyCoordinates: Coordinates,
     propertyImageUrls: List[String],
@@ -24,6 +25,7 @@ object Advert {
     Advert(
       advertUrl = internal.advertUrl,
       advertPriceInEur = internal.advertPriceInEur,
+      propertyIdentifier = internal.propertyIdentifier,
       propertyAddress = internal.propertyAddress,
       propertyCoordinates =
         Coordinates.fromInternal(internal.propertyCoordinates),

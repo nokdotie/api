@@ -3,6 +3,7 @@ package ie.nok.api.graphql.adverts
 import ie.nok.adverts.stores
 import ie.nok.adverts.stores.{AdvertStore, AdvertStoreCursor}
 import ie.nok.api.utils.pagination.{Connection, PaginationArgs, JsonCursor}
+import scala.util.chaining.scalaUtilChainingOps
 import zio.ZIO
 
 object AdvertResolver {
@@ -32,5 +33,20 @@ object AdvertResolver {
         first
       )
     } yield connection
+  }
+
+  def advert(
+      args: AdvertArgs
+  ): ZIO[AdvertStore, Throwable, Option[Advert]] = {
+    val filter = args.identifier
+      .pipe { stores.StringFilter.Equals(_) }
+      .pipe { stores.AdvertFilter.PropertyIdentifier(_) }
+    val first = 1
+    val after = AdvertStoreCursor(0)
+
+    AdvertStore
+      .getPage(filter, first, after)
+      .map { _.headOption }
+      .map { _.map(Advert.fromInternal) }
   }
 }

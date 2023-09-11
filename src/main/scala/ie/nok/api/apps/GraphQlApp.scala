@@ -4,6 +4,8 @@ import caliban.{graphQL, RootResolver, ZHttpAdapter}
 import caliban.schema.{Schema, ArgBuilder}
 import ie.nok.adverts.stores.AdvertStore
 import ie.nok.api.graphql.adverts.{
+  Advert,
+  AdvertArgs,
   AdvertsArgs,
   AdvertResolver,
   AdvertConnection
@@ -20,14 +22,15 @@ object GraphQlApp {
         AdvertStore,
         Throwable,
         AdvertConnection
-      ]
+      ],
+      advert: AdvertArgs => ZIO[AdvertStore, Throwable, Option[Advert]]
   )
   object Queries {
     given Schema[AdvertStore, Queries] = Schema.gen
   }
 
   val api = graphQL[AdvertStore, Queries, Unit, Unit](
-    RootResolver(Queries(AdvertResolver.adverts))
+    RootResolver(Queries(AdvertResolver.adverts, AdvertResolver.advert))
   )
 
   val http: Http[
