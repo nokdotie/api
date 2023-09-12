@@ -32,10 +32,10 @@ object AdvertsFilter {
     List(
       filter.address
         .map(StringFilter.toStoreFilter)
-        .map(stores.AdvertFilter.Address(_)),
+        .map(stores.AdvertFilter.PropertyAddress(_)),
       filter.coordinates
         .map(CoordinatesFilter.toStoreFilter)
-        .map(stores.AdvertFilter.Coordinates(_))
+        .map(stores.AdvertFilter.PropertyCoordinates(_))
     ).flatten
       .pipe {
         case Nil          => stores.AdvertFilter.Empty

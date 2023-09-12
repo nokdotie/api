@@ -14,6 +14,8 @@ object StringFilter {
   def toStoreFilter(filter: StringFilter): stores.StringFilter =
     filter.contains
       .map(_.trim)
-      .fold(stores.StringFilter.Empty)(stores.StringFilter.Contains(_))
+      .fold(stores.StringFilter.Empty)(
+        stores.StringFilter.ContainsCaseInsensitive(_)
+      )
 
 }
