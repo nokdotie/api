@@ -16,7 +16,7 @@ lazy val root = project
     name := "api",
     version := "0.1.0-SNAPSHOT",
     scalaVersion := scala3Version,
-    resolvers += Resolver.githubPackages("nok-ie"),
+    resolvers += Resolver.githubPackages("nokdotie"),
     libraryDependencies ++= Seq(
       "com.google.firebase" % "firebase-admin" % "9.1.1",
       "com.github.ghostdogpr" %% "caliban" % "2.1.0",
