@@ -26,7 +26,7 @@ lazy val root = project
       "dev.zio" %% "zio-http" % "0.0.5",
       "dev.zio" %% "zio-test" % "2.0.15" % Test,
       "dev.zio" %% "zio-test-sbt" % "2.0.15" % Test,
-      "ie.nok" %% "adverts" % "20230911.204120.252568075",
+      "ie.nok" %% "adverts" % "20231128.161423.48242364",
       "ie.nok" %% "scala-libraries" % "20230911.141557.874954016"
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
