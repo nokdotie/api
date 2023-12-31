@@ -1,13 +1,13 @@
 val scala3Version = "3.3.0"
 
 Universal / javaOptions ++= Seq(
-  "-J-Xms2G",
-  "-J-Xmx2G"
+  "-J-Xms4G",
+  "-J-Xmx4G"
 )
 
 Universal / scalacOptions ++= Seq(
-  "-Xms2G",
-  "-Xmx2G"
+  "-Xms4G",
+  "-Xmx4G"
 )
 
 lazy val root = project
