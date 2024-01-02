@@ -24,7 +24,6 @@ object Advertiser {
       emailAddresses = internal.emailAddresses,
       phoneNumbers = internal.phoneNumbers,
       physicalAddresses = internal.physicalAddresses,
-      propertyServicesRegulatoryAuthorityLicenceNumber =
-        internal.propertyServicesRegulatoryAuthorityLicenceNumber
+      propertyServicesRegulatoryAuthorityLicenceNumber = internal.propertyServicesRegulatoryAuthorityLicenceNumber
     )
 }
