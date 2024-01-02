@@ -1,18 +1,12 @@
 package ie.nok.api.apps
 
-import caliban.{graphQL, RootResolver, ZHttpAdapter}
-import caliban.schema.{Schema, ArgBuilder}
+import caliban.{GraphQL, RootResolver, ZHttpAdapter, graphQL}
+import caliban.schema.{ArgBuilder, Schema}
 import ie.nok.adverts.stores.AdvertStore
-import ie.nok.api.graphql.adverts.{
-  Advert,
-  AdvertArgs,
-  AdvertsArgs,
-  AdvertResolver,
-  AdvertConnection
-}
-import sttp.tapir.json.zio._
+import ie.nok.api.graphql.adverts.{Advert, AdvertArgs, AdvertConnection, AdvertResolver, AdvertsArgs}
+import sttp.tapir.json.zio.*
 import zio.ZIO
-import zio.http._
+import zio.http.*
 import zio.http.model.Method
 
 object GraphQlApp {
@@ -29,7 +23,7 @@ object GraphQlApp {
     given Schema[AdvertStore, Queries] = Schema.gen
   }
 
-  val api = graphQL[AdvertStore, Queries, Unit, Unit](
+  val api: GraphQL[AdvertStore] = graphQL[AdvertStore, Queries, Unit, Unit](
     RootResolver(Queries(AdvertResolver.adverts, AdvertResolver.advert))
   )
 

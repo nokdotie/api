@@ -1,4 +1,4 @@
-val scala3Version = "3.3.0"
+val scala3Version = "3.3.1"
 
 Universal / javaOptions ++= Seq(
   "-J-Xms4G",
@@ -24,10 +24,11 @@ lazy val root = project
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % "1.5.4",
       "com.stripe" % "stripe-java" % "22.18.0",
       "dev.zio" %% "zio-http" % "0.0.5",
+      "ch.qos.logback" % "logback-classic" % "1.4.14", // TODO add logger config
       "dev.zio" %% "zio-test" % "2.0.15" % Test,
       "dev.zio" %% "zio-test-sbt" % "2.0.15" % Test,
-      "ie.nok" %% "adverts" % "20231128.161423.48242364",
-      "ie.nok" %% "scala-libraries" % "20230911.141557.874954016"
+      "ie.nok" %% "adverts" % "20231231.213509.10341662",
+      "ie.nok" %% "scala-libraries" % "20231029.200446.985541447"
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
     dockerAliases ++= Seq(

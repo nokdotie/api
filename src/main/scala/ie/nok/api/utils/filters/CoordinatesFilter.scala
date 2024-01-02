@@ -9,7 +9,7 @@ case class CoordinatesFilter(
 )
 
 object CoordinatesFilter {
-  given ArgBuilder[CoordinatesFilter] = ArgBuilder.gen
+  given ArgBuilder[CoordinatesFilter]  = ArgBuilder.gen
   given Schema[Any, CoordinatesFilter] = Schema.gen
 
   def toStoreFilter(filter: CoordinatesFilter): stores.CoordinatesFilter =

@@ -7,6 +7,6 @@ case class AdvertArgs(
 )
 
 object AdvertArgs {
-  given ArgBuilder[AdvertArgs] = ArgBuilder.gen
+  given ArgBuilder[AdvertArgs]  = ArgBuilder.gen
   given Schema[Any, AdvertArgs] = Schema.gen
 }

@@ -15,7 +15,7 @@ case class AdvertsArgs(
 ) extends ForwardPaginationArgs[JsonCursor[Int]]
 
 object AdvertsArgs {
-  given ArgBuilder[AdvertsArgs] = ArgBuilder.gen
+  given ArgBuilder[AdvertsArgs]  = ArgBuilder.gen
   given Schema[Any, AdvertsArgs] = Schema.gen
 }
 
@@ -25,7 +25,7 @@ case class AdvertsFilter(
 )
 
 object AdvertsFilter {
-  given ArgBuilder[AdvertsFilter] = ArgBuilder.gen
+  given ArgBuilder[AdvertsFilter]  = ArgBuilder.gen
   given Schema[Any, AdvertsFilter] = Schema.gen
 
   def toStoreFilter(filter: AdvertsFilter): stores.AdvertFilter =

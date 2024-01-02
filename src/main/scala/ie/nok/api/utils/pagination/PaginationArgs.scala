@@ -14,8 +14,6 @@ object PaginationArgs {
       pagination: ForwardPaginationArgs[JsonCursor[A]]
   ): Option[A] =
     pagination.after
-      .map { Cursor[JsonCursor[A]].decode(_).toOption }
-      .flatten
+      .flatMap(Cursor[JsonCursor[A]].decode(_).toOption)
       .map { _.value }
-
 }
