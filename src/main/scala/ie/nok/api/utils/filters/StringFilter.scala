@@ -8,7 +8,7 @@ case class StringFilter(
 )
 
 object StringFilter {
-  given ArgBuilder[StringFilter] = ArgBuilder.gen
+  given ArgBuilder[StringFilter]  = ArgBuilder.gen
   given Schema[Any, StringFilter] = Schema.gen
 
   def toStoreFilter(filter: StringFilter): stores.StringFilter =

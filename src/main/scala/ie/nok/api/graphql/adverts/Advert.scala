@@ -1,13 +1,13 @@
 package ie.nok.api.graphql.adverts
 
 import caliban.schema.Schema
-import java.time.Instant
 import ie.nok.api.utils.geographic.Coordinates
 
 case class Advert(
     advertUrl: String,
     advertPriceInEur: Int,
     propertyIdentifier: String,
+    propertyDescription: Option[String],
     propertyAddress: String,
     propertyCoordinates: Coordinates,
     propertyImageUrls: List[String],
@@ -27,16 +27,14 @@ object Advert {
       advertUrl = internal.advertUrl,
       advertPriceInEur = internal.advertPriceInEur,
       propertyIdentifier = internal.propertyIdentifier,
+      propertyDescription = internal.propertyDescription,
       propertyAddress = internal.propertyAddress,
-      propertyCoordinates =
-        Coordinates.fromInternal(internal.propertyCoordinates),
+      propertyCoordinates = Coordinates.fromInternal(internal.propertyCoordinates),
       propertyImageUrls = internal.propertyImageUrls,
       propertySizeInSqtMtr = internal.propertySizeInSqtMtr,
       propertyBedroomsCount = internal.propertyBedroomsCount,
       propertyBathroomsCount = internal.propertyBathroomsCount,
-      propertyBuildingEnergyRating = internal.propertyBuildingEnergyRating.map {
-        _.toString
-      },
+      propertyBuildingEnergyRating = internal.propertyBuildingEnergyRating.map { _.toString },
       sources = internal.sources.map { InformationSource.fromInternal },
       advertiser = internal.advertiser.map { Advertiser.fromInternal }
     )

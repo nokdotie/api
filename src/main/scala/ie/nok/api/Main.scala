@@ -16,14 +16,14 @@ object Main extends ZIOAppDefault {
       PropertyPriceRegisterProxy.http ++
       GraphQlApp.http ++
       HealthApp.http ++
-      SwaggerHttp.http
+      SwaggerApp.http
   ).pipe {
     _
       @@ HttpAppMiddleware.debug
       @@ HttpAppMiddleware.cors()
   }.withDefaultErrorResponse
 
-  override val run = for {
+  override val run: ZIO[Any with ZIOAppArgs with Scope, Throwable, Unit] = for {
     _ <- Console.printLine(s"Starting server on http://localhost:$getPort")
     server <- Server
       .serve(app)
