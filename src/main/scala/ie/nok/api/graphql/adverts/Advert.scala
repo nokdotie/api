@@ -15,6 +15,8 @@ case class Advert(
     propertyBedroomsCount: Int,
     propertyBathroomsCount: Int,
     propertyBuildingEnergyRating: Option[String],
+    propertyBuildingEnergyRatingCertificateNumber: Option[Int],
+    propertyBuildingEnergyRatingEnergyRatingInKWhPerSqtMtrPerYear: Option[BigDecimal],
     sources: List[InformationSource],
     advertiser: Option[Advertiser]
 )
@@ -35,6 +37,8 @@ object Advert {
       propertyBedroomsCount = internal.propertyBedroomsCount,
       propertyBathroomsCount = internal.propertyBathroomsCount,
       propertyBuildingEnergyRating = internal.propertyBuildingEnergyRating.map { _.toString },
+      propertyBuildingEnergyRatingCertificateNumber = internal.propertyBuildingEnergyRatingCertificateNumber,
+      propertyBuildingEnergyRatingEnergyRatingInKWhPerSqtMtrPerYear = internal.propertyBuildingEnergyRatingEnergyRatingInKWhPerSqtMtrPerYear,
       sources = internal.sources.map { InformationSource.fromInternal },
       advertiser = internal.advertiser.map { Advertiser.fromInternal }
     )
