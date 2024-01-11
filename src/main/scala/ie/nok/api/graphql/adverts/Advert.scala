@@ -1,30 +1,41 @@
 package ie.nok.api.graphql.adverts
 
-import java.time.Instant
+import caliban.schema.Schema
+import ie.nok.api.utils.geographic.Coordinates
 
 case class Advert(
     advertUrl: String,
-    advertPrice: Int,
     advertPriceInEur: Int,
+    propertyIdentifier: String,
+    propertyDescription: Option[String],
     propertyAddress: String,
+    propertyCoordinates: Coordinates,
     propertyImageUrls: List[String],
     propertySizeInSqtMtr: BigDecimal,
-    propertySizeinSqtMtr: BigDecimal,
     propertyBedroomsCount: Int,
-    propertyBathroomsCount: Int
+    propertyBathroomsCount: Int,
+    propertyBuildingEnergyRating: Option[String],
+    sources: List[InformationSource],
+    advertiser: Option[Advertiser]
 )
 
 object Advert {
+  given Schema[Any, Advert] = Schema.gen
+
   def fromInternal(internal: ie.nok.adverts.Advert): Advert =
     Advert(
       advertUrl = internal.advertUrl,
-      advertPrice = internal.advertPriceInEur,
       advertPriceInEur = internal.advertPriceInEur,
+      propertyIdentifier = internal.propertyIdentifier,
+      propertyDescription = internal.propertyDescription,
       propertyAddress = internal.propertyAddress,
+      propertyCoordinates = Coordinates.fromInternal(internal.propertyCoordinates),
       propertyImageUrls = internal.propertyImageUrls,
-      propertySizeinSqtMtr = internal.propertySizeInSqtMtr,
       propertySizeInSqtMtr = internal.propertySizeInSqtMtr,
       propertyBedroomsCount = internal.propertyBedroomsCount,
-      propertyBathroomsCount = internal.propertyBathroomsCount
+      propertyBathroomsCount = internal.propertyBathroomsCount,
+      propertyBuildingEnergyRating = internal.propertyBuildingEnergyRating.map { _.toString },
+      sources = internal.sources.map { InformationSource.fromInternal },
+      advertiser = internal.advertiser.map { Advertiser.fromInternal }
     )
 }

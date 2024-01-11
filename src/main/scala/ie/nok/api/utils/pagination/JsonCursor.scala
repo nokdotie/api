@@ -1,14 +1,13 @@
-package ie.nok.api.utils.graphql
+package ie.nok.api.utils.pagination
 
 import caliban.relay.Cursor
+import caliban.schema.Schema
 import ie.nok.base64.{Base64Decoder, Base64Encoder}
 import ie.nok.json.JsonDecoder
-import ie.nok.zio.ZIO
-import java.util.Base64
-import scala.util.Try
+import ie.nok.zio.ZIOOps.unsafeRun
+import zio.json.*
+
 import scala.util.chaining.scalaUtilChainingOps
-import zio.json._
-import caliban.schema.Schema
 
 case class JsonCursor[A: JsonCodec](value: A)
 object JsonCursor {
@@ -23,7 +22,7 @@ object JsonCursor {
         .decode(s)
         .flatMap { JsonDecoder.decode[A] }
         .map { JsonCursor.apply }
-        .pipe { ZIO.unsafeRun }
+        .pipe { unsafeRun }
         .toEither
         .left
         .map { _.getMessage }

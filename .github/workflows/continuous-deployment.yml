@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 1 * * *'
 
 concurrency:
   group: ${{ github.workflow }}
@@ -11,7 +13,7 @@ concurrency:
 
 jobs:
   scala:
-    uses: nok-ie/github-workflows/.github/workflows/scala-deploy-gcp.yml@main
+    uses: nokdotie/github-workflows/.github/workflows/scala-deploy-gcp.yml@main
     with:
       SBT_PROJECT_ID: root
       GCP_CLOUD_RUN_SERVICE: api
