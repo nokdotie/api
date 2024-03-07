@@ -2,9 +2,8 @@ package ie.nok.api.utils.pagination
 
 import caliban.relay.Cursor
 import caliban.schema.Schema
-import ie.nok.base64.{Base64Decoder, Base64Encoder}
-import ie.nok.json.JsonDecoder
-import ie.nok.zio.ZIOOps.unsafeRun
+import ie.nok.codec.base64.Base64
+import ie.nok.codec.json.Json
 import zio.json.*
 
 import scala.util.chaining.scalaUtilChainingOps
@@ -15,14 +14,13 @@ object JsonCursor {
     type T = A
 
     def encode(a: JsonCursor[A]): String = a.value.toJson.pipe {
-      Base64Encoder.encode
+      Base64.encode
     }
     def decode(s: String): Either[String, JsonCursor[A]] =
-      Base64Decoder
+      Base64
         .decode(s)
-        .flatMap { JsonDecoder.decode[A] }
+        .flatMap { Json.decode[A] }
         .map { JsonCursor.apply }
-        .pipe { unsafeRun }
         .toEither
         .left
         .map { _.getMessage }

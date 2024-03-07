@@ -1,7 +1,7 @@
 package ie.nok.api.graphql.adverts
 
-import ie.nok.adverts.stores
-import ie.nok.adverts.stores.{AdvertStore, AdvertStoreCursor}
+import ie.nok.filter.StringFilter
+import ie.nok.adverts.stores.{AdvertFilter, AdvertStore, AdvertStoreCursor}
 import ie.nok.api.utils.pagination.{Connection, PaginationArgs, JsonCursor}
 import scala.util.chaining.scalaUtilChainingOps
 import zio.ZIO
@@ -11,7 +11,7 @@ object AdvertResolver {
       args: AdvertsArgs
   ): ZIO[AdvertStore, Throwable, AdvertConnection] = {
     val filter =
-      args.filter.fold(stores.AdvertFilter.Empty)(AdvertsFilter.toStoreFilter)
+      args.filter.fold(AdvertFilter.Empty)(AdvertsFilter.toStoreFilter)
     val first = PaginationArgs.first(args)
     val after = PaginationArgs
       .after(args)
@@ -39,8 +39,8 @@ object AdvertResolver {
       args: AdvertArgs
   ): ZIO[AdvertStore, Throwable, Option[Advert]] = {
     val filter = args.identifier
-      .pipe { stores.StringFilter.Equals(_) }
-      .pipe { stores.AdvertFilter.PropertyIdentifier(_) }
+      .pipe { StringFilter.Equals(_) }
+      .pipe { AdvertFilter.PropertyIdentifier(_) }
     val first = 1
     val after = AdvertStoreCursor(0)
 
