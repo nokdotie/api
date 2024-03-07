@@ -1,7 +1,7 @@
 package ie.nok.api.utils.filters
 
 import caliban.schema.{Schema, ArgBuilder}
-import ie.nok.adverts.stores
+import ie.nok.filter.IntFilter as Filter
 import scala.util.chaining.scalaUtilChainingOps
 
 case class IntFilter(
@@ -13,15 +13,15 @@ object IntFilter {
   given ArgBuilder[IntFilter]  = ArgBuilder.gen
   given Schema[Any, IntFilter] = Schema.gen
 
-  def toStoreFilter(filter: IntFilter): stores.IntFilter =
+  def toStoreFilter(filter: IntFilter): Filter =
     List(
-      filter.lessThanOrEqual.map(stores.IntFilter.LessThanOrEqual),
-      filter.greaterThanOrEqual.map(stores.IntFilter.GreaterThanOrEqual)
+      filter.lessThanOrEqual.map(Filter.LessThanOrEqual),
+      filter.greaterThanOrEqual.map(Filter.GreaterThanOrEqual)
     ).flatten
       .pipe {
-        case Nil          => stores.IntFilter.Empty
+        case Nil          => Filter.Empty
         case head :: Nil  => head
-        case head :: tail => stores.IntFilter.And(head, tail: _*)
+        case head :: tail => Filter.And(head, tail: _*)
       }
 
 }
