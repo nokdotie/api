@@ -1,7 +1,7 @@
 package ie.nok.api.utils.filters
 
 import caliban.schema.{Schema, ArgBuilder}
-import ie.nok.filter.IntFilter as Filter
+import ie.nok.stores.filters.IntFilter as Filter
 import scala.util.chaining.scalaUtilChainingOps
 
 case class IntFilter(

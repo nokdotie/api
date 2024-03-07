@@ -2,8 +2,8 @@ package ie.nok.api.utils.pagination
 
 import caliban.relay.Cursor
 import caliban.schema.Schema
-import ie.nok.codec.base64.Base64
-import ie.nok.codec.json.Json
+import ie.nok.codecs.base64.Base64
+import ie.nok.codecs.json.Json
 import zio.json.*
 
 import scala.util.chaining.scalaUtilChainingOps

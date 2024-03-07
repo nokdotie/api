@@ -27,7 +27,7 @@ lazy val root = project
       "ch.qos.logback"               % "logback-classic"  % "1.4.14", // TODO add logger config
       "dev.zio"                     %% "zio-test"         % "2.0.15" % Test,
       "dev.zio"                     %% "zio-test-sbt"     % "2.0.15" % Test,
-      "ie.nok"                      %% "adverts"          % "20240307.092232.980759883"
+      "ie.nok"                      %% "adverts"          % "20240307.171018.415691575"
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
     dockerAliases ++= Seq(

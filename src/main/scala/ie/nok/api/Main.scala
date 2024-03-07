@@ -6,8 +6,7 @@ import zio.http.ServerConfig.default.address.getPort
 import ie.nok.adverts.stores.{AdvertStore, AdvertStoreImpl}
 import ie.nok.api.apps._
 import ie.nok.api.apps.proxies._
-import ie.nok.file.ZFileServiceImpl
-import ie.nok.gcp.storage.ZStorageServiceImpl
+import ie.nok.stores.compose.ZFileAndGoogleStorageStoreImpl
 import scala.util.chaining.scalaUtilChainingOps
 import ie.nok.adverts.Advert
 
@@ -33,8 +32,7 @@ object Main extends ZIOAppDefault {
         Server.default,
         Client.default,
         AdvertStoreImpl.live,
-        ZFileServiceImpl.layer[Advert],
-        ZStorageServiceImpl.layer
+        ZFileAndGoogleStorageStoreImpl.layer[Advert]
       )
   } yield ()
 

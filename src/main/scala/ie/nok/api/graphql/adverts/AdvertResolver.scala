@@ -1,6 +1,6 @@
 package ie.nok.api.graphql.adverts
 
-import ie.nok.filter.StringFilter
+import ie.nok.stores.filters.StringFilter
 import ie.nok.adverts.stores.{AdvertFilter, AdvertStore, AdvertStoreCursor}
 import ie.nok.api.utils.pagination.{Connection, PaginationArgs, JsonCursor}
 import scala.util.chaining.scalaUtilChainingOps

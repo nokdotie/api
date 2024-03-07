@@ -1,7 +1,7 @@
 package ie.nok.api.utils.filters
 
 import caliban.schema.{Schema, ArgBuilder}
-import ie.nok.filter.StringFilter as Filter
+import ie.nok.stores.filters.StringFilter as Filter
 
 case class StringFilter(
     contains: Option[String]
