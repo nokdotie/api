@@ -3,8 +3,9 @@ package ie.nok.api.graphql.adverts
 import caliban.relay.ForwardPaginationArgs
 import caliban.schema.{ArgBuilder, Schema}
 import ie.nok.adverts.stores
-import ie.nok.api.utils.filters._
+import ie.nok.api.utils.filters.*
 import ie.nok.api.utils.pagination.JsonCursor
+
 import scala.util.chaining.scalaUtilChainingOps
 
 case class AdvertsArgs(
@@ -24,7 +25,8 @@ case class AdvertsFilter(
     priceInEur: Option[IntFilter],
     bedroomsCount: Option[IntFilter],
     bathroomsCount: Option[IntFilter],
-    sizeInSqtMtr: Option[IntFilter]
+    sizeInSqtMtr: Option[IntFilter],
+    propertyType: Option[StringFilter]
 )
 
 object AdvertsFilter {
@@ -50,7 +52,10 @@ object AdvertsFilter {
         .map(stores.AdvertFilter.PropertyBathroomsCount(_)),
       filter.sizeInSqtMtr
         .map(IntFilter.toStoreFilter)
-        .map(stores.AdvertFilter.PropertySizeInSqtMtr(_))
+        .map(stores.AdvertFilter.PropertySizeInSqtMtr(_)),
+      filter.propertyType
+        .map(StringFilter.toStoreFilter)
+        .map(stores.AdvertFilter.PropertyType(_))
     ).flatten
       .pipe {
         case Nil          => stores.AdvertFilter.Empty
