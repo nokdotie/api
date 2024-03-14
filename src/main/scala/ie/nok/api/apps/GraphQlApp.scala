@@ -4,6 +4,7 @@ import caliban.{GraphQL, RootResolver, ZHttpAdapter, graphQL}
 import caliban.schema.{ArgBuilder, Schema}
 import ie.nok.adverts.stores.AdvertStore
 import ie.nok.api.graphql.adverts.{Advert, AdvertArgs, AdvertConnection, AdvertResolver, AdvertsArgs}
+import ie.nok.api.graphql.seo.Seo
 import sttp.tapir.json.zio.*
 import zio.ZIO
 import zio.http.*
@@ -17,14 +18,16 @@ object GraphQlApp {
         Throwable,
         AdvertConnection
       ],
-      advert: AdvertArgs => ZIO[AdvertStore, Throwable, Option[Advert]]
+      advert: AdvertArgs => ZIO[AdvertStore, Throwable, Option[Advert]],
+      seo: Seo
   )
+
   object Queries {
     given Schema[AdvertStore, Queries] = Schema.gen
   }
 
   val api: GraphQL[AdvertStore] = graphQL[AdvertStore, Queries, Unit, Unit](
-    RootResolver(Queries(AdvertResolver.adverts, AdvertResolver.advert))
+    RootResolver(Queries(AdvertResolver.adverts, AdvertResolver.advert, Seo.default))
   )
 
   val http: Http[
