@@ -1,6 +1,7 @@
 package ie.nok.api.graphql.seo
 
 import caliban.schema.Schema
+import ie.nok.seo.indexnow.IndexNow.key
 
 case class IndexNow(
     isKeyValid: (key: String) => Boolean
@@ -9,5 +10,5 @@ case class IndexNow(
 object IndexNow {
   given Schema[Any, IndexNow] = Schema.gen
 
-  val default = IndexNow((key: String) => key == "indexnow-123")
+  val default = IndexNow(_ == key)
 }
