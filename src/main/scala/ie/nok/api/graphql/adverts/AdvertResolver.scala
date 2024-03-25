@@ -19,10 +19,9 @@ object AdvertResolver {
 
     for {
       page <- AdvertStore.getPage(filter, first, after)
-      itemsWithIndex = page.items.zipWithIndex.map { (advert, index) =>
-        (Advert.fromInternal(advert), index)
+      advertWithIndex = page.zipWithIndex.map { (advert, index) =>
+        (Advert.fromInternal(advert), index + after.index + 1)
       }
-      pageWithIndex = page.copy(items = itemsWithIndex)
       connection = Connection[(Advert, Int), Advert, JsonCursor[
         Int
       ], AdvertEdge, AdvertConnection](
@@ -30,7 +29,8 @@ object AdvertResolver {
         AdvertEdge.apply,
         (_, index) => JsonCursor(index),
         (advert, _) => advert,
-        pageWithIndex
+        advertWithIndex,
+        first
       )
     } yield connection
   }
@@ -46,7 +46,7 @@ object AdvertResolver {
 
     AdvertStore
       .getPage(filter, first, after)
-      .map { _.items.headOption }
+      .map { _.headOption }
       .map { _.map(Advert.fromInternal) }
   }
 }
