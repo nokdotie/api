@@ -8,6 +8,7 @@ enum InformationSource {
   case MyHomeIeAdvert(url: String)
   case PropertyPalComAdvert(url: String)
   case SherryFitzIeAdvert(url: String)
+  case MaherPropertyIeAdvert(url: String)
   case BuildingEnergyRatingCertificate(
       url: String,
       number: Int,
@@ -34,6 +35,8 @@ object InformationSource {
         InformationSource.PropertyPalComAdvert(value.url)
       case ie.nok.adverts.InformationSource.SherryFitzIeAdvert(value) =>
         InformationSource.SherryFitzIeAdvert(value.url)
+      case ie.nok.adverts.InformationSource.MaherPropertyIeAdvert(value) =>
+        InformationSource.MaherPropertyIeAdvert(value.url)
       case ie.nok.adverts.InformationSource
             .BuildingEnergyRatingCertificate(value) =>
         InformationSource.BuildingEnergyRatingCertificate(
