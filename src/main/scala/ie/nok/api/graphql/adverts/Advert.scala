@@ -19,6 +19,7 @@ case class Advert(
     propertyBuildingEnergyRatingCertificateNumber: Option[Int],
     propertyBuildingEnergyRatingEnergyRatingInKWhPerSqtMtrPerYear: Option[BigDecimal],
     sources: List[InformationSource],
+    facets: List[AdvertFacet],
     advertiser: Option[Advertiser]
 )
 
@@ -42,6 +43,7 @@ object Advert {
       propertyBuildingEnergyRatingCertificateNumber = internal.propertyBuildingEnergyRatingCertificateNumber,
       propertyBuildingEnergyRatingEnergyRatingInKWhPerSqtMtrPerYear = internal.propertyBuildingEnergyRatingEnergyRatingInKWhPerSqtMtrPerYear,
       sources = internal.sources.map { InformationSource.fromInternal },
+      facets = internal.facets.map { AdvertFacet.fromInternal },
       advertiser = internal.advertiser.map { Advertiser.fromInternal }
     )
 }
