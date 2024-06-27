@@ -12,8 +12,8 @@ object CoordinatesFilter {
   given ArgBuilder[CoordinatesFilter]  = ArgBuilder.gen
   given Schema[Any, CoordinatesFilter] = Schema.gen
 
-  def toStoreFilter(filter: CoordinatesFilter): Filter =
-    filter.withinRectangle
+  def toInternal(external: CoordinatesFilter): Filter =
+    external.withinRectangle
       .fold(Filter.Empty) { bounds =>
         val northEast = Coordinates.toInternal(bounds.northEast)
         val southWest = Coordinates.toInternal(bounds.southWest)
