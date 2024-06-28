@@ -13,10 +13,10 @@ object IntFilter {
   given ArgBuilder[IntFilter]  = ArgBuilder.gen
   given Schema[Any, IntFilter] = Schema.gen
 
-  def toStoreFilter(filter: IntFilter): Filter =
+  def toInternal(external: IntFilter): Filter =
     List(
-      filter.lessThanOrEqual.map(Filter.LessThanOrEqual),
-      filter.greaterThanOrEqual.map(Filter.GreaterThanOrEqual)
+      external.lessThanOrEqual.map(Filter.LessThanOrEqual),
+      external.greaterThanOrEqual.map(Filter.GreaterThanOrEqual)
     ).flatten
       .pipe {
         case Nil          => Filter.Empty

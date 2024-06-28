@@ -8,9 +8,9 @@ object Coordinates {
   given Schema[Any, Coordinates] = Schema.gen
   given ArgBuilder[Coordinates]  = ArgBuilder.gen
 
-  def fromInternal(coordinates: ie.nok.geographic.Coordinates): Coordinates =
-    Coordinates(coordinates.latitude, coordinates.longitude)
+  def fromInternal(internal: ie.nok.geographic.Coordinates): Coordinates =
+    Coordinates(internal.latitude, internal.longitude)
 
-  def toInternal(coordinates: Coordinates): ie.nok.geographic.Coordinates =
-    ie.nok.geographic.Coordinates(coordinates.latitude, coordinates.longitude)
+  def toInternal(external: Coordinates): ie.nok.geographic.Coordinates =
+    ie.nok.geographic.Coordinates(external.latitude, external.longitude)
 }

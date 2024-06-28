@@ -23,11 +23,11 @@ object StringFilter {
         case head :: tail => f(head, tail)
       }
 
-  def toStoreFilter(filter: StringFilter): Filter =
+  def toInternal(external: StringFilter): Filter =
     List(
-      filter.contains.map(Filter.ContainsCaseInsensitive(_)),
-      filter.equals.map(Filter.EqualsCaseInsensitive(_)),
-      filter.in.map(_.map(Filter.EqualsCaseInsensitive(_))).map(toFilter(_, Filter.Or.apply))
+      external.contains.map(Filter.ContainsCaseInsensitive(_)),
+      external.equals.map(Filter.EqualsCaseInsensitive(_)),
+      external.in.map(_.map(Filter.EqualsCaseInsensitive(_))).map(toFilter(_, Filter.Or.apply))
     ).flatten
       .pipe { toFilter(_, Filter.And.apply) }
 }
