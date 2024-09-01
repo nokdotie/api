@@ -28,7 +28,7 @@ lazy val root = project
       "dev.zio"                     %% "zio-test"         % "2.0.22" % Test,
       "dev.zio"                     %% "zio-test-sbt"     % "2.0.22" % Test,
       "org.scalameta"               %% "munit"            % "0.7.29" % Test,
-      "ie.nok"                      %% "adverts"          % "20240627.145425.742439534"
+      "ie.nok"                      %% "adverts"          % "20240718.084441.144058974"
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
     dockerAliases ++= Seq(
