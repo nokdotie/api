@@ -25,7 +25,7 @@ lazy val root = project
       "com.stripe"                   % "stripe-java"      % "22.31.0",
       "dev.zio"                     %% "zio-http"         % "0.0.5",
       "ch.qos.logback"               % "logback-classic"  % "1.5.7", // TODO add logger config
-      "dev.zio"                     %% "zio-test"         % "2.0.15" % Test,
+      "dev.zio"                     %% "zio-test"         % "2.0.22" % Test,
       "dev.zio"                     %% "zio-test-sbt"     % "2.0.15" % Test,
       "org.scalameta"               %% "munit"            % "0.7.29" % Test,
       "ie.nok"                      %% "adverts"          % "20240627.145425.742439534"
