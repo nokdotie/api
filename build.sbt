@@ -20,7 +20,7 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "com.google.firebase"          % "firebase-admin"   % "9.1.1",
       "com.github.ghostdogpr"       %% "caliban"          % "2.8.1",
-      "com.github.ghostdogpr"       %% "caliban-zio-http" % "2.1.0",
+      "com.github.ghostdogpr"       %% "caliban-zio-http" % "2.8.1",
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio"   % "1.5.4",
       "com.stripe"                   % "stripe-java"      % "22.18.0",
       "dev.zio"                     %% "zio-http"         % "0.0.5",
