@@ -18,7 +18,7 @@ lazy val root = project
     scalaVersion := scala3Version,
     resolvers += Resolver.githubPackages("nokdotie"),
     libraryDependencies ++= Seq(
-      "com.google.firebase"          % "firebase-admin"   % "9.1.1",
+      "com.google.firebase"          % "firebase-admin"   % "9.3.0",
       "com.github.ghostdogpr"       %% "caliban"          % "2.8.1",
       "com.github.ghostdogpr"       %% "caliban-zio-http" % "2.8.1",
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio"   % "1.5.4",
