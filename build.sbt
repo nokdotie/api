@@ -24,7 +24,7 @@ lazy val root = project
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio"   % "1.5.4",
       "com.stripe"                   % "stripe-java"      % "22.18.0",
       "dev.zio"                     %% "zio-http"         % "0.0.5",
-      "ch.qos.logback"               % "logback-classic"  % "1.4.14", // TODO add logger config
+      "ch.qos.logback"               % "logback-classic"  % "1.5.7", // TODO add logger config
       "dev.zio"                     %% "zio-test"         % "2.0.15" % Test,
       "dev.zio"                     %% "zio-test-sbt"     % "2.0.15" % Test,
       "org.scalameta"               %% "munit"            % "0.7.29" % Test,
