@@ -1,4 +1,4 @@
-val scala3Version = "3.3.1"
+val scala3Version = "3.3.3"
 
 Universal / javaOptions ++= Seq(
   "-J-Xms4G",
@@ -18,17 +18,17 @@ lazy val root = project
     scalaVersion := scala3Version,
     resolvers += Resolver.githubPackages("nokdotie"),
     libraryDependencies ++= Seq(
-      "com.google.firebase"          % "firebase-admin"   % "9.1.1",
-      "com.github.ghostdogpr"       %% "caliban"          % "2.1.0",
-      "com.github.ghostdogpr"       %% "caliban-zio-http" % "2.1.0",
-      "com.softwaremill.sttp.tapir" %% "tapir-json-zio"   % "1.5.4",
-      "com.stripe"                   % "stripe-java"      % "22.18.0",
+      "com.google.firebase"          % "firebase-admin"   % "9.3.0",
+      "com.github.ghostdogpr"       %% "caliban"          % "2.8.1",
+      "com.github.ghostdogpr"       %% "caliban-zio-http" % "2.8.1",
+      "com.softwaremill.sttp.tapir" %% "tapir-json-zio"   % "1.5.5",
+      "com.stripe"                   % "stripe-java"      % "22.31.0",
       "dev.zio"                     %% "zio-http"         % "0.0.5",
-      "ch.qos.logback"               % "logback-classic"  % "1.4.14", // TODO add logger config
-      "dev.zio"                     %% "zio-test"         % "2.0.15" % Test,
-      "dev.zio"                     %% "zio-test-sbt"     % "2.0.15" % Test,
-      "org.scalameta"               %% "munit"            % "0.7.29" % Test,
-      "ie.nok"                      %% "adverts"          % "20240627.145425.742439534"
+      "ch.qos.logback"               % "logback-classic"  % "1.5.7", // TODO add logger config
+      "dev.zio"                     %% "zio-test"         % "2.0.22" % Test,
+      "dev.zio"                     %% "zio-test-sbt"     % "2.0.22" % Test,
+      "org.scalameta"               %% "munit"            % "1.0.1"  % Test,
+      "ie.nok"                      %% "adverts"          % "20240718.084441.144058974"
     ),
     dockerRepository := Some("gcr.io/deed-ie"),
     dockerAliases ++= Seq(
